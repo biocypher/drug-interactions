@@ -25,13 +25,8 @@ print(paths)
 
 adapter = DDInterAdapter(data_file_paths=paths)
 
-
-# Create a knowledge graph from the adapter
 bc.write_nodes(adapter.get_nodes())
 bc.write_edges(adapter.get_edges())
 
-# Write admin import statement
 bc.write_import_call()
-
-# Print summary
 bc.summary()
