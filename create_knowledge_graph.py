@@ -27,6 +27,7 @@ adapter = DDInterAdapter(data_file_paths=paths)
 
 bc.write_nodes(adapter.get_nodes())
 bc.write_edges(adapter.get_edges())
+bc.write_schema_info(as_node=True)
 
 bc.write_import_call()
 bc.summary()
