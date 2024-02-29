@@ -1,21 +1,12 @@
-# add your desired knowledge graph components here
-
-protein:
+drug:
     represented_as: node
-    preferred_id: uniprot
-    label_in_input: uniprot_protein
+    preferred_id: ddinter
+    input_label: drug
 
-disease:
-    represented_as: node
-    preferred_id: doid
-    label_in_input: do_disease
-    
-protein interaction:
-    is_a: pairwise molecular interaction
-    represented_as: edge
-    label_in_input: protein_protein_interaction
-
-protein to disease association:
+drug interaction:
     is_a: association
     represented_as: edge
-    label_in_input: protein_disease_association
+    input_label: drug_drug_interaction
+    properties:
+        level: str
+        class: str

@@ -1,50 +1,29 @@
-from biocypher import BioCypher
-from template_package.adapters.example_adapter import (
-    ExampleAdapter,
-    ExampleAdapterNodeType,
-    ExampleAdapterEdgeType,
-    ExampleAdapterProteinField,
-    ExampleAdapterDiseaseField,
-)
+from biocypher import BioCypher, Resource
+from drug_interactions.adapters.ddinter_adapter import DDInterAdapter
 
-# Instantiate the BioCypher interface
-# You can use `config/biocypher_config.yaml` to configure the framework or
-# supply settings via parameters below
 bc = BioCypher()
 
-# Choose node types to include in the knowledge graph.
-# These are defined in the adapter (`adapter.py`).
-node_types = [
-    ExampleAdapterNodeType.PROTEIN,
-    ExampleAdapterNodeType.DISEASE,
+urls = [
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_A.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_B.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_D.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_H.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_L.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_P.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_R.csv",
+    "http://ddinter.scbdd.com/static/media/download/ddinter_downloads_code_V.csv",
 ]
 
-# Choose protein adapter fields to include in the knowledge graph.
-# These are defined in the adapter (`adapter.py`).
-node_fields = [
-    # Proteins
-    ExampleAdapterProteinField.ID,
-    ExampleAdapterProteinField.SEQUENCE,
-    ExampleAdapterProteinField.DESCRIPTION,
-    ExampleAdapterProteinField.TAXON,
-    # Diseases
-    ExampleAdapterDiseaseField.ID,
-    ExampleAdapterDiseaseField.NAME,
-    ExampleAdapterDiseaseField.DESCRIPTION,
-]
-
-edge_types = [
-    ExampleAdapterEdgeType.PROTEIN_PROTEIN_INTERACTION,
-    ExampleAdapterEdgeType.PROTEIN_DISEASE_ASSOCIATION,
-]
-
-# Create a protein adapter instance
-adapter = ExampleAdapter(
-    node_types=node_types,
-    node_fields=node_fields,
-    edge_types=edge_types,
-    # we can leave edge fields empty, defaulting to all fields in the adapter
+resource = Resource(
+    name="DDInter",
+    url_s=urls,
+    lifetime=14,
 )
+
+paths = bc.download(resource)
+print(paths)
+
+adapter = DDInterAdapter(data_file_paths=paths)
 
 
 # Create a knowledge graph from the adapter
