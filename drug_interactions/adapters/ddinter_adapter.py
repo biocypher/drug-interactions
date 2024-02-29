@@ -146,7 +146,7 @@ class DDInterAdapter:
                     row["DDInterID"],
                     "drug",
                     {
-                        "name": row["Drug"],
+                        "name": row["Drug"].replace("'", ""),
                     },
                 )
 
