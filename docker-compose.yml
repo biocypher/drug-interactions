@@ -41,12 +41,14 @@ services:
     ports:
       - "127.0.0.1:7474:7474"
       - "127.0.0.1:7687:7687"
+    networks:
+      - biochatter
     depends_on:
       import:
         condition: service_completed_successfully
 
   app:
-    image: biocypher/biochatter-light:0.4.3
+    image: biocypher/biochatter-light:0.4.4
     container_name: app
     ports:
       - "8501:8501"
